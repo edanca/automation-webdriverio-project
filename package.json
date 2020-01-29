@@ -21,6 +21,9 @@
     "@wdio/sync": "^5.18.6",
     "chai": "^4.2.0",
     "chromedriver": "^79.0.2",
-    "wdio-chromedriver-service": "^5.0.2"
-  }
+    "dotenv": "^8.2.0",
+    "wdio-chromedriver-service": "^5.0.2",
+    "wdio-docker-service": "^2.2.1"
+  },
+  "dependencies": {}
 }

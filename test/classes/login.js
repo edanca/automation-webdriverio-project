@@ -7,17 +7,14 @@ class Login extends Base {
   get loginFormBtn() { return this.findElement('button=Sign In') }
 
   get iframeLogin() { return this.findElement(`#alibaba-login-box`) }
-  get iframeLoginId() { return `#alibaba-login-box`}
-  
-  
 
   login() {
     this.signInBtn.click()
 
     browser.switchToFrame(this.iframeLogin)
     
-    this.loginFormAccount.setValue('texopir665@hiwave.org')
-    this.loginFormPass.setValue('123456')
+    this.loginFormAccount.setValue(process.env.USER_EMAIL)
+    this.loginFormPass.setValue(process.env.USER_PASS)
     this.loginFormBtn.click()
 
     browser.switchToParentFrame()

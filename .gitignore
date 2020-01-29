@@ -37,6 +37,7 @@ share/python-wheels/
 MANIFEST
 
 # Installer logs
+logs/
 pip-log.txt
 pip-delete-this-directory.txt
 

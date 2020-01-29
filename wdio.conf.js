@@ -9,7 +9,7 @@ exports.config = {
   runner: 'local',
   //
   // Override default path ('/wd/hub') for chromedriver service.
-  path: '/',
+  // path: '/',
   //
   // ==================
   // Specify Test Files
@@ -114,7 +114,22 @@ exports.config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: ['chromedriver'],
+  services: ['docker'],
+
+  host: 'localhost',
+  port: 4444,
+  path: '/wd/hub',
+
+  dockerLogs: './logs',
+  dockerOptions: {
+    image: 'selenium/standalone-chrome-debug:3.141.59-zinc',
+    healthCheck: 'http://localhost:4444',
+    options: {
+      e: ['USER_EMAIL=texopir665@hiwave.org', 'USER_PASS=123456'],
+      p: ['4444:4444', '5900:5900'],
+      shmSize: '2g'
+    }
+  },
   
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
@@ -143,8 +158,12 @@ exports.config = {
   before: function(capabilities, specs) {
     require('@babel/register')
 
+    // Import expect from chai as a global variable
     const { expect } = require('chai')
     global.expect = expect
+
+    // Requiring environment variables
+    require('dotenv').config()
 
     browser.addCommand('switchTab', function(window) {
       const windowNumber = parseInt(window)

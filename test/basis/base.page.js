@@ -6,8 +6,7 @@ class Base {
   }
 
   get modalCloseMainPage() { return $('[data-role="layer-close"]') }
-  // get modalCloseResultsPage() { return $('.next-dialog-close') }
-  
+  get modalCloseResultsPage() { return $('.next-dialog-close') }
 
   findElement(selector) {
     this.closeModalIfExists()
@@ -25,14 +24,12 @@ class Base {
       this.modalCloseMainPage.click()
     } catch (error) {
       //
-      console.log(error)
     }
     try {
-      const modalCloseResultsPage = browser.findElement('xpath', '//*[@id="right-cart-num"]')
-      modalCloseResultsPage.click()
+      this.modalCloseResultsPage.waitForDisplayed(100)
+      this.modalCloseResultsPage.click()
     } catch (error) {
       //
-      console.log(error)
     }
   }
 }
