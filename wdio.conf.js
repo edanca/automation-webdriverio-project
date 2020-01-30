@@ -1,4 +1,5 @@
 const { ReportAggregator, HtmlReporter} = require('@rpii/wdio-html-reporter')
+const log4js = require('log4js')
 
 exports.config = {
   //
@@ -174,7 +175,7 @@ exports.config = {
       // },
 
       //to initialize the logger
-      // LOG: log4j.getLogger("default")
+      LOG: log4js.getLogger("default")
     }]
   ],
 
