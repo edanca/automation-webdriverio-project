@@ -9,6 +9,7 @@ describe(`Search product on page`, () => {
   })
 
   it(`should search product from home page`, () => {
+
     Home.searchProduct('iphone')
 
     Home.scrollDown()

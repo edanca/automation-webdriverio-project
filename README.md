@@ -17,7 +17,13 @@ The Web been tested is `https://www.aliexpress.com/`.
 
 ## How to run test
 
-Need to have the .env file shared via email. This file contains credentials for login.
+Need to have the .env file shared via email. This file contains credentials for login, and goes in the root path.
+
+### Prerequisites
+
+Have installed:
+- NodeJS
+- Docker
 
 ### Steps
 
@@ -27,7 +33,7 @@ Install framework dependencies
 npm install
 ```
 
-Then run the tests in the docker mode (is mandatory to have docker already installed)
+Then run the tests with a docker container
 
 ```bash
 node_modules/.bin/wdio wdio.conf.js
@@ -35,8 +41,11 @@ node_modules/.bin/wdio wdio.conf.js
 
 ### Results
 
-Results are displayed on terminal screen at the end.
+Results are displayed on terminal and also through a HTML Report.
 
+The HTML report page will be opened automatically in your default browser after the tests finalized.
+
+Or you can access manually going to the path `reports/html-reports`, that is generated after the test has been executed, and open the file `master-report.html` in your browser.
 
 ### See test running in action
 
@@ -44,9 +53,8 @@ For see how the test are executed, first you need to install VNC Viewer or any o
 
 Then you need to create a new connection pointing to `localhost:5900`, generally the default user in these applications are `admin` and the password `secret`.
 
-IMPORTANT: Notice that the docker container will only be live while the tests are running, which is around 50 sec, after that the container is deleted.
+*IMPORTANT*: Notice that the docker container will only be live while the tests are running, which is around 50 sec, after that time the container is deleted.
 
- After completed the above steps, open a connection in your remote server viewer and see the tests running.
- 
- *BE CAUTION* to do not interact with the browser inside the container, otherwise you could interrupt the test and make it fail.
- 
+After completed the above steps, open a connection in your remote server viewer and see the tests running.
+
+*BE CAUTIOUS* to do not interact with the browser inside the container, otherwise you may interrupt the test and make it fail.

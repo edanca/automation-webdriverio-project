@@ -1,3 +1,5 @@
+const { ReportAggregator, HtmlReporter} = require('@rpii/wdio-html-reporter')
+
 exports.config = {
   //
   // ====================
@@ -21,7 +23,6 @@ exports.config = {
   //
   specs: [
     './test/specs/*.spec.js',
-    './test/specs/**/*.spec.js'
   ],
   // Patterns to exclude.
   exclude: [
@@ -71,7 +72,8 @@ exports.config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: 'info',
+  // logLevel: 'info', // for development
+  logLevel: 'error',
   logDir: './logs',
   //
   // Set specific log levels per logger
@@ -125,7 +127,7 @@ exports.config = {
     image: 'selenium/standalone-chrome-debug:3.141.59-zinc',
     healthCheck: 'http://localhost:4444',
     options: {
-      e: ['USER_EMAIL=texopir665@hiwave.org', 'USER_PASS=123456'],
+      e: [`USER_EMAIL=${process.env.USER_EMAIL}`, `USER_PASS=${process.env.USER_EMAIL}`],
       p: ['4444:4444', '5900:5900'],
       shmSize: '2g'
     }
@@ -144,13 +146,37 @@ exports.config = {
   //
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
-  // see also: https://webdriver.io/docs/dot-reporter.html
-  // reporters: ['spec', ['allure', {
-  //       outputDir: 'allure-results',
-  //       disableWebdriverStepsReporting: true,
-  //       disableWebdriverScreenshotsReporting: true,
-  //   }]],
-  reporters: ['spec'],
+  // see also: https://webdriver.io/docs/dot-reporter.html  
+  
+  // reporters: ['spec'],
+
+  reporters: ['spec',
+    [HtmlReporter, {
+      debug: true,
+      outputDir: './reports/html-reports/',
+      filename: 'report.html',
+      reportTitle: 'Test Report Title',
+      
+      //to show the report in a browser when done
+      showInBrowser: true,
+
+      //to turn on screenshots after every test
+      useOnAfterCommandForScreenshot: false,
+
+      // to use the template override option, can point to your own file in the test project:
+      // templateFilename: path.resolve(__dirname, '../src/wdio-html-reporter-alt-template.hbs'),
+      
+      // to add custom template functions for your custom template:
+      // templateFuncs: {
+      //     addOne: (v) => {
+      //         return v+1;
+      //     },
+      // },
+
+      //to initialize the logger
+      // LOG: log4j.getLogger("default")
+    }]
+  ],
 
   //
   // Options to be passed to Mocha.
@@ -193,8 +219,21 @@ exports.config = {
    * @param {Object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function (config, capabilities) {
-  // },
+  onPrepare: function (config, capabilities) {
+
+    let reportAggregator = new ReportAggregator({
+      outputDir: './reports/html-reports/',
+      filename: 'master-report.html',
+      reportTitle: 'Master Report',
+      
+      // to use the template override option, can point to your own file in the test project:
+      // templateFilename: path.resolve(__dirname, '../src/wdio-html-reporter-alt-template.hbs')
+    });
+    reportAggregator.clean() ;
+
+    global.reportAggregator = reportAggregator;
+
+  },
   /**
    * Gets executed just before initialising the webdriver session and test framework. It allows you
    * to manipulate configurations depending on the capability or spec.
@@ -289,8 +328,17 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {<Object>} results object containing test results
    */
-  // onComplete: function(exitCode, config, capabilities, results) {
-  // },
+  onComplete: function(exitCode, config, capabilities, results) {
+    
+    (async () => {
+      await global.reportAggregator.createReport( {
+        config: config,
+        capabilities: capabilities,
+        results : results
+      });
+    })();
+
+  },
   /**
   * Gets executed when a refresh happens.
   * @param {String} oldSessionId session ID of the old session

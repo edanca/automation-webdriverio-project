@@ -35,6 +35,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+node_modules/
 
 # Installer logs
 logs/
@@ -53,7 +54,7 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
-allure-results/
+reports/
 
 *.log
 
@@ -72,5 +73,3 @@ venv.bak/
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
-
-node_modules/
