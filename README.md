@@ -36,3 +36,17 @@ node_modules/.bin/wdio wdio.conf.js
 ### Results
 
 Results are displayed on terminal screen at the end.
+
+
+### See test running in action
+
+For see how the test are executed, first you need to install VNC Viewer or any other remote server viewer.
+
+Then you need to create a new connection pointing to `localhost:5900`, generally the default user in these applications are `admin` and the password `secret`.
+
+IMPORTANT: Notice that the docker container will only be live while the tests are running, which is around 50 sec, after that the container is deleted.
+
+ After completed the above steps, open a connection in your remote server viewer and see the tests running.
+ 
+ *BE CAUTION* to do not interact with the browser inside the container, otherwise you could interrupt the test and make it fail.
+ 

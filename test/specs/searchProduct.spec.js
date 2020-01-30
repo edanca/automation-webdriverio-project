@@ -1,6 +1,6 @@
 import Home from '../classes/home.page'
-import ProductList from '../classes/productList.page'
 import Product from '../classes/product.page'
+import ProductList from '../classes/productList.page'
 
 describe(`Search product on page`, () => {
   beforeEach(() => {
