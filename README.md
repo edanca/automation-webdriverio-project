@@ -22,18 +22,33 @@ Need to have the .env file shared via email. This file contains credentials for 
 ### Prerequisites
 
 Have installed:
+
 - NodeJS
 - Docker
 
 ### Steps
 
+*NOTE*: Is mandatory to have make installed in order run make commands, see end of the Readme file for instructions.
+
 Install framework dependencies
+
+```bash
+make install
+```
+
+or
 
 ```bash
 npm install
 ```
 
 Then run the tests with a docker container
+
+```bash
+make test
+```
+
+or
 
 ```bash
 node_modules/.bin/wdio wdio.conf.js
@@ -58,3 +73,22 @@ Then you need to create a new connection pointing to `localhost:5900`, generally
 After completed the above steps, open a connection in your remote server viewer and see the tests running.
 
 *BE CAUTIOUS* to do not interact with the browser inside the container, otherwise you may interrupt the test and make it fail.
+
+## Make commands
+
+### How to install
+
+#### Mac
+
+- [Instructions](https://stackoverflow.com/questions/10265742/how-to-install-make-and-gcc-on-a-mac)
+
+#### Ubuntu
+
+- [Instructions](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjh6Mbly6vnAhVdIbkGHXPyDEwQFjAAegQIAxAB&url=https%3A%2F%2Faskubuntu.com%2Fquestions%2F161104%2Fhow-do-i-install-make&usg=AOvVaw3oPL4IotYsCETXUvxfzkD0)
+
+### Available commands
+
+- `make help`: Displays available commands and it's notations
+- `make install`: Installs NPM dependencies
+- `make linter`: Run JSHint on the corrunt path
+- `make test`: Run WebdriverIO tests
