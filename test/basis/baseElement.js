@@ -20,4 +20,4 @@ class BaseElement {
   }
 }
 
-export default new BaseElement
+export default new BaseElement()

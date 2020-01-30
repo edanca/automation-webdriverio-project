@@ -4,4 +4,4 @@ class Product extends Base {
   get productsAvailable() { return this.findElement('.product-quantity-tip') }
 }
 
-export default new Product
+export default new Product()

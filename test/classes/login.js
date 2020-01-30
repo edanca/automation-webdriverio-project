@@ -23,4 +23,4 @@ class Login extends Base {
   }
 }
 
-export default new Login
+export default new Login()

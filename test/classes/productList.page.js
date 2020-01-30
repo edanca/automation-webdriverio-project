@@ -18,4 +18,4 @@ class ProductList extends Base {
   }
 }
 
-export default new ProductList
+export default new ProductList()
