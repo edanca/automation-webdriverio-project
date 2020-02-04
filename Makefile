@@ -11,6 +11,6 @@ install: ## Installs NPM dependencies
 	npm install
 
 test: ## Run WebdriverIO tests
-	@node_modules/.bin/wdio wdio.conf.js
+	@npm run test
 
 .PHONY: install linter test
